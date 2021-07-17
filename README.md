@@ -96,7 +96,7 @@ curl -d '{
 
 *  For show connector list `SHOW CONNECTORS;`
 *  For show topics list `SHOW TOPICS;`
-*  For show connector list `PRINT "ftp-source-topic" FROM BEGINNING;`
+*  For show connector list `PRINT "<connectorName-tableName>" FROM BEGINNING;`
 for more details of [ksqldb](https://docs.ksqldb.io/en/latest/developer-guide/ksqldb-reference/create-connector/) 
    
 6. Now we make s3 sink connector(Kafka topic to s3)
@@ -123,8 +123,8 @@ curl -i -X PUT -H "Accept:application/json" \
 **Things to customise for your environment:**
 
 * `topics` :  the source topic(s) you want to send to S3
-* `key.converter` : match the serialisation of your source data [link](see https://www.confluent.io/blog/kafka-connect-deep-dive-converters-serialization-explained/)
-* `value.converter` : match the serialisation of your source data [link](see https://www.confluent.io/blog/kafka-connect-deep-dive-converters-serialization-explained/)
+* `key.converter` : match the serialisation of your source data [link](https://www.confluent.io/blog/kafka-connect-deep-dive-converters-serialization-explained/)
+* `value.converter` : match the serialisation of your source data [link](https://www.confluent.io/blog/kafka-connect-deep-dive-converters-serialization-explained/)
 * And many more
 
 
