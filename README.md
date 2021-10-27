@@ -131,6 +131,6 @@ curl -i -X PUT -H "Accept:application/json" \
 
 References
 
-* Confluent Hub [link](https://hub.confluent.io)
-* S3 Sink connector docs[link](https://docs.confluent.io/current/connect/kafka-connect-s3/index.html#connect-s3)
-* oracle cdc source connector[link](https://docs.confluent.io/kafka-connect-oracle-cdc/current/configuration-properties.html)
+* [Confluent Hub](https://hub.confluent.io)
+* [S3 Sink connector docs](https://docs.confluent.io/current/connect/kafka-connect-s3/index.html#connect-s3)
+* [oracle cdc source connector](https://docs.confluent.io/kafka-connect-oracle-cdc/current/configuration-properties.html)
