@@ -47,41 +47,40 @@ ksqldb            /usr/bin/docker/run         Up             0.0.0.0:8088->8088/
 
 ```javascript
 curl -d '{
-"name": "oracle-12",
+"name": "CDC-oracle",
 "config": {
-"tasks.max":1,
 "connector.class": "io.confluent.connect.oracle.cdc.OracleCdcSourceConnector",
+"name": "CDC-oracle",
+"tasks.max":1,
+"key.converter": "io.confluent.connect.avro.AvroConverter",
+"key.converter.schema.registry.url": "http://localhost:8081",
 "value.converter": "io.confluent.connect.avro.AvroConverter",
-"errors.tolerance": "all",
-"topic.creation.groups": "redo",
+"value.converter.schema.registry.url": "http://localhost:8081",
+"confluent.topic.bootstrap.servers":"localhost:9092",
 "oracle.server": "<hostname>",
 "oracle.port": "1521",
 "oracle.sid": "<sid>",
 "oracle.username": "<username>",
 "oracle.password": "<password>",
-"start.from": "snapshot",
-"redo.log.poll.interval.ms": "1000",
-"redo.log.consumer.bootstrap.servers": "localhost:9092",
-"value.converter.schema.registry.url": "http://localhost:8081"
-"redo.log.consumer.fetch.min.bytes": "1",
-"numeric.mapping": "best_fit",
-"table.inclusion.regex": "<databaseName>\\.<username>\\.<tableName>",
+"start.from":"snapshot",
+"redo.log.consumer.bootstrap.servers":"localhost:9092",
+"table.inclusion.regex":"<databaseName>\\.<username>\\.<tableName>",
 "table.topic.name.template": "${connectorName}-${tableName}",
-"connection.pool.max.size": "20",
-"confluent.topic.bootstrap.servers": "localhost:9092",
-"confluent.topic.replication.factor": "1",
-"topic.creation.default.partitions": "1",
-"topic.creation.redo.partitions": "1",
-"topic.creation.redo.include": "redo-log-topic",
-"topic.creation.default.replication.factor": "1",
-"topic.creation.redo.retention.ms": "1209600000",
-"topic.creation.redo.replication.factor": "1",
-"topic.creation.default.cleanup.policy": "delete",
-"topic.creation.redo.cleanup.policy": "compect",
+"connection.pool.max.size": 20,
+"confluent.topic.replication.factor":1,
+"topic.creation.groups": "redo",
+"topic.creation.redo.include": "oracle-redo-log-topic",
+"topic.creation.redo.replication.factor": 1,
+"topic.creation.redo.partitions": 1,
+"topic.creation.redo.cleanup.policy": "delete",
+"topic.creation.redo.retention.ms": 1209600000,
+"topic.creation.default.replication.factor": 1,
+"topic.creation.default.partitions": 1,
+"topic.creation.default.cleanup.policy": "compact"
 }
 }' -H 'Content-Type: application/json' http://0.0.0.0:8083/connectors/
 ```
-**customise  the connector for your environment** for more information about [oracle cdc source connector](https://docs.confluent.io/kafka-connect-oracle-cdc/current/configuration-properties.html)
+**customise the connector for your environment** for more information about [oracle cdc source connector](https://docs.confluent.io/kafka-connect-oracle-cdc/current/configuration-properties.html)
 
 4. Check that required connectors are loaded successfully
   (oracle-12 is connector name)
@@ -132,6 +131,6 @@ curl -i -X PUT -H "Accept:application/json" \
 
 References
 
-* https://hub.confluent.io [Confluent Hub]
-* https://docs.confluent.io/current/connect/kafka-connect-s3/index.html#connect-s3 [S3 Sink connector docs]
-* https://docs.confluent.io/kafka-connect-oracle-cdc/current/configuration-properties.html [oracle cdc source connector]
+* Confluent Hub [link](https://hub.confluent.io)
+* S3 Sink connector docs[link](https://docs.confluent.io/current/connect/kafka-connect-s3/index.html#connect-s3)
+* oracle cdc source connector[link](https://docs.confluent.io/kafka-connect-oracle-cdc/current/configuration-properties.html)
